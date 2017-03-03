@@ -1,0 +1,12 @@
+console.log(Ice.between(null,"abc","def"));
+console.log(Ice.between("","abc","def"));
+console.log(Ice.between("abc",null,"def"));
+console.log(Ice.between("abc","","def"));
+console.log(Ice.between("abc","def",null));
+console.log(Ice.between("abc","def",""));
+console.log("===================");
+console.log(Ice.between("abcdefghijklmnopqrstuvwxyz","def","zzz"));
+console.log(Ice.between("abcdefghijklmnopqrstuvwxyz","zzz","stu"));
+console.log(Ice.between("abcdeflmnghijklmnopqrstuvwstuxyz","lmn","stu"));
+console.log(Ice.between("abcdefghi(jklmnopq)rstuvwxyz","(",")"));
+console.log(Ice.between("abc(defghi(jklmnopq)rst)uvwxyz","(",")"));

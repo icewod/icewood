@@ -1,0 +1,11 @@
+console.log(Ice.getEle(null));
+console.log(Ice.getEle(""));
+console.log(Ice.getEle("#logo"));
+console.log(Ice.getEle("logo"));
+console.log(Ice.getEle(".tip"));
+console.log(Ice.getEle(".tip")[2].innerText);
+console.log(Ice.getEle("div"));
+//console.log(document.getElementsByTagName("*"));
+//console.log(document.getElementsByTagName("*")[0]);
+//console.log(document.getElementsByTagName("*")[0].classList());
+//console.log(document.getElementsByTagName("*")[0].classList()[0]);

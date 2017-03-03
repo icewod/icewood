@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">if (typeof String.prototype.startsWith != &quot;function&quot;) {
+    String.prototype.startsWith = function(prefix) {
+        return this.slice(0, prefix.length) === prefix;
+    };
+}
+
+if (typeof String.prototype.endsWith != &quot;function&quot;) {
+    String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+    };
+}
+
+if (typeof String.prototype.trim != &quot;function&quot;) {
+    String.prototype.trim = function() {
+        return this.replace(/^\s\s*/, &quot;&quot;).replace(/\s\s*$/, &quot;&quot;);
+    };
+}
+
+if (typeof String.prototype.trimLeft != &quot;function&quot;) {
+    String.prototype.trimLeft = function() {
+        return this.replace(/^\s\s*/, &quot;&quot;);
+    };
+}
+
+if (typeof String.prototype.trimRight != &quot;function&quot;) {
+    String.prototype.trimRight = function() {
+        return this.replace(/\s\s*$/, &quot;&quot;);
+    };
+}
+
+if (typeof String.prototype.includes != &quot;function&quot;) {
+    String.prototype.includes = function(subStr) {
+        return this.indexOf(subStr) != -1;
+    };
+}
+
+if (typeof String.prototype.repeat != &quot;function&quot;) {
+    String.prototype.repeat = function(num) {
+        var sum = &quot;&quot;;
+        for (var i = 0; i &lt; num; i++) {
+            sum += &quot;&quot; + this;
+        }
+        return sum;
+    };
+}
+
+if (location.origin === undefined) {
+    location.origin = location.protocol + &quot;//&quot;;
+}
+
+if (typeof Date.prototype.toISOString != &quot;function&quot;) {
+    Date.prototype.toISOString = function(suffix) {
+        var now = new Date();
+        var sum = &quot;&quot;;
+        var year = now.getFullYear();
+        var month = now.getMonth();
+        var date = now.getDate();
+        var hour = now.getHours() + now.getTimezoneOffset()/60;
+        var mintue = now.getMinutes();
+        var second = now.getSeconds();
+        var millisecond = now.getMilliseconds();
+        sum += year;
+        sum += &quot;-&quot;;
+        month++;
+        if (month &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += month;
+        sum += &quot;-&quot;;
+        if (date &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += date;
+        sum += &quot;T&quot;;
+        if (hour &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += hour;
+        sum += &quot;:&quot;;
+        if (mintue &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += mintue;
+        sum += &quot;:&quot;;
+        if (second &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += second;
+        sum += &quot;.&quot;;
+        if (millisecond &lt; 10) {
+            sum += &quot;00&quot;;
+        } else if (millisecond &lt; 100) {
+            sum += &quot;0&quot;;
+        }
+        sum += millisecond;
+        sum += &quot;Z&quot;;
+        return sum;
+    };
+}
+
+if (typeof Array.prototype.indexOf != &quot;function&quot;) {
+    Array.prototype.indexOf = function(obj) {
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            if (cur == obj) {
+                return i;
+            }
+        }
+        return -1;
+    };
+}
+
+if (typeof Array.prototype.lastIndexOf != &quot;function&quot;) {
+    Array.prototype.lastIndexOf = function(obj) {
+        for (var i = this.length - 1; i &gt;= 0; i--) {
+            var cur = this[i];
+            if (cur == obj) {
+                return i;
+            }
+        }
+        return -1;
+    };
+}
+
+if (typeof Array.prototype.every != &quot;function&quot;) {
+    Array.prototype.every = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var flag = fun(cur, i, this);
+            if (!flag) {
+                return false;
+            }
+        }
+        return true;
+        ;
+    };
+}
+if (typeof Array.prototype.some != &quot;function&quot;) {
+    Array.prototype.some = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var flag = fun(cur, i, this);
+            if (flag) {
+                return true;
+            }
+        }
+        return false;
+        ;
+    };
+}
+if (typeof Array.prototype.forEach != &quot;function&quot;) {
+    Array.prototype.forEach = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            fun(cur, i, this);
+        }
+        return undefined;
+        ;
+    };
+}
+if (typeof Array.prototype.map != &quot;function&quot;) {
+    Array.prototype.map = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        var list = [];
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var curResult = fun(cur, i, this);
+            list.push(curResult);
+        }
+        return list;
+    };
+}
+if (typeof Array.prototype.filter != &quot;function&quot;) {
+    Array.prototype.filter = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        var list = [];
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var curResult = fun(cur, i, this);
+            if (curResult) {
+                list.push(cur);
+            }
+        }
+        return list;
+    };
+}
+if (typeof Array.prototype.reduce != &quot;function&quot;) {
+    Array.prototype.reduce = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        if (this.length == 0) {
+            throw new Error(
+                    &quot;Uncaught TypeError: Reduce of empty array with no initial value&quot;);
+        }
+        var sum = this[0];
+        for (var i = 1; i &lt; this.length; i++) {
+            var cur = this[i];
+            sum = fun(sum, cur, i, this);
+        }
+        return sum;
+    };
+}
+
+if (typeof Array.prototype.reduceRight != &quot;function&quot;) {
+    Array.prototype.reduceRight = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        if (this.length == 0) {
+            throw new Error(
+                    &quot;Uncaught TypeError: Reduce of empty array with no initial value&quot;);
+        }
+        var aryLength = this.length;
+        var sum = this[aryLength - 1];
+        for (var i = aryLength - 2; i &gt;= 0; i--) {
+            var cur = this[i];
+            sum = fun(sum, cur, i, this);
+        }
+        return sum;
+    };
+}
+if (typeof Array.prototype.find != &quot;function&quot;) {
+    Array.prototype.find = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var curResult = fun(cur, i, this);
+            if (curResult) {
+                return cur;
+            }
+        }
+        return undefined;
+    };
+}
+if (typeof Array.prototype.findIndex != &quot;function&quot;) {
+    Array.prototype.findIndex = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length; i++) {
+            var cur = this[i];
+            var curResult = fun(cur, i, this);
+            if (curResult) {
+                return i;
+            }
+        }
+        return -1;
+    };
+}
+if (typeof Array.prototype.fill != &quot;function&quot;) {
+    Array.prototype.fill = function(val, startIndex, endIndex) {
+        if (startIndex == null || isNaN(parseInt(startIndex))) {
+            startIndex = 0;
+        }
+        if (endIndex == null || isNaN(parseInt(endIndex))) {
+            endIndex = this.length;
+        }
+        if (startIndex % 1 != 0) {
+            startIndex = parseInt(startIndex);
+        }
+        if (endIndex % 1 != 0) {
+            endIndex = parseInt(endIndex);
+        }
+        var aryLength = this.length;
+        if (startIndex &lt; 0) {
+            startIndex = startIndex + aryLength;
+        }
+        if (endIndex &lt; 0) {
+            endIndex = endIndex + aryLength;
+        }
+        if (startIndex &gt; aryLength) {
+            startIndex = aryLength;
+        }
+        if (endIndex &gt; aryLength) {
+            endIndex = aryLength;
+        }
+        for (var i = startIndex; i &lt; endIndex; i++) {
+            this[i] = val;
+        }
+        return this;
+    };
+}
+if (typeof Array.prototype.sort != &quot;function&quot;) {
+    Array.prototype.sort = function(fun) {
+        if (fun === undefined) {
+            throw new Error(&quot;Uncaught TypeError: undefined is not a function&quot;);
+        } else if (typeof fun != &quot;function&quot;) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun + &quot; is not a function&quot;);
+        }
+        for (var i = 0; i &lt; this.length - 1; i++) {
+            for (var j = i + 1; j &lt; this.length; j++) {
+                if (fun(this[i], this[j]) &gt; 0) {
+                    var temp = this[i];
+                    this[i] = this[j];
+                    this[j] = temp;
+                }
+            }
+        }
+        return this;
+    };
+}
+if (typeof Array.prototype.copyWithin != &quot;function&quot;) {
+    Array.prototype.copyWithin = function(targetIndex, srcStart, srcEnd) {
+        if (this == null) {
+            throw new Error(
+                    &quot;Uncaught TypeError: Cannot read property 'copyWithin' of null&quot;);
+        }
+        if (this === &quot;&quot;) {
+            throw new Error(
+                    &quot;Uncaught TypeError: \&quot;\&quot;.copyWithin is not a function&quot;);
+        }
+        if (this.length == null) {
+            throw new Error(&quot;Uncaught TypeError: &quot; + fun
+                    + &quot;.copyWithin is not a function&quot;);
+        }
+        var aryLength = this.length;
+        if (targetIndex == null) {
+            targetIndex = 0;
+        } else if (targetIndex &lt; 0) {
+            targetIndex = aryLength + targetIndex;
+        }
+        if (srcStart == null) {
+            srcStart = 0;
+        } else if (srcStart &lt; 0) {
+            srcStart = aryLength + srcStart;
+        }
+        if (srcEnd == null) {
+            srcEnd = aryLength;
+        } else if (srcEnd &lt; 0) {
+            srcStart = aryLength + srcEnd;
+        }
+        if (srcStart &gt;= srcEnd) {
+            return this;
+        }
+        var list = [];
+        for (var i = srcStart; i &lt; srcEnd; i++) {
+            list.push(this[i]);
+        }
+        var newLength = targetIndex + list.length;
+        if (newLength &gt; aryLength) {
+            newLength = aryLength;
+        }
+        var j = 0;
+        for (var i = targetIndex; i &lt; newLength; i++) {
+            this[i] = list[j++];
+        }
+        return this;
+    };
+}
+if (typeof Array.prototype.keys != &quot;function&quot;) {
+    Array.prototype.keys = function() {
+        var ArrayIterator = function() {
+
+        }
+        var p = new ArrayIterator();
+        var inner;
+        if (inner == null) {
+            inner = {
+                value : -1,
+                done : false
+            };
+        }
+        var _this = this;
+        p.length = function() {
+            return _this.length;
+        }
+        p.next = function() {
+            if (inner.value != null) {
+                inner.value++;
+            }
+            if (inner.value &gt;= this.length()) {
+                inner.done = true;
+                inner.value = undefined;
+            }
+            return inner;
+        }
+        return p;
+    }
+}
+if (typeof Array.prototype.entries != &quot;function&quot;) {
+    Array.prototype.entries = function() {
+        var ArrayIterator = function() {
+
+        }
+        var p = new ArrayIterator();
+        var inner;
+        if (inner == null) {
+            inner = {
+                value : [ -1, undefined ],
+                done : false
+            };
+        }
+        var _this = this;
+        p.length = function() {
+            return _this.length;
+        }
+        p.cur = function(index) {
+            return _this[index];
+        }
+        p.next = function() {
+            if (inner.value != null) {
+                if (inner.value[0] != null) {
+                    inner.value[0]++;
+                    inner.value[1] = this.cur(inner.value[0]);
+                }
+                if (inner.value[0] &gt;= this.length()) {
+                    inner.done = true;
+                    inner.value = undefined;
+                }
+            }
+            return inner;
+        }
+        return p;
+    }
+}
+
+<span id='Ice'>/**
+</span> * icewood提供了javascript操作的基础函数 &lt;br/&gt;
+ * 
+ * @author IceWater &lt;br/&gt;
+ * @Email zxcyhn@126.com &lt;br/&gt;
+ * @date 2017-03-02 &lt;br/&gt;
+ * @version 1.0 &lt;br/&gt;
+ */
+var Ice = {
+<span id='Ice-method-replace'>    /**
+</span>     * 替换字符串中的指定字符
+     * 
+     * @param str 原始字符串
+     * @param oldStr 需要替换的旧字符
+     * @param newStr 替换成的新字符
+     * @return 替换后的字符
+     */
+    replace : function(str, oldStr, newStr) {
+        if (str == null) {
+            return null;
+        }
+        if (str === &quot;&quot; || oldStr == &quot;&quot; || oldStr == null || newStr == null) {
+            return str;
+        }
+        var len = str.length - oldStr.length;
+        var oldLength = oldStr.length;
+        var sum = &quot;&quot;;
+        var end = false;
+        for (var i = 0; i &lt; str.length; i++) {
+            if (i + oldLength &lt;= str.length) {
+                var strSub = str.substring(i, i + oldLength);
+                if (strSub == oldStr) {
+                    sum += newStr;
+                    i += oldLength - 1;
+                } else {
+                    sum += str.charAt(i);
+                }
+            } else {
+                sum += str.charAt(i);
+            }
+        }
+        return sum;
+    },
+<span id='Ice-method-newDate'>    /**
+</span>     * 根据 yyyy-MM-dd 形式的日期字符串创建日期
+     * 
+     * @param dateStr 日期字符串
+     * @return 转换后的日期
+     */
+    newDate : function(dateStr) {
+        return new Date(dateStr.replace(/-/g, &quot;/&quot;));
+    },
+<span id='Ice-method-isEmpty'>    /**
+</span>     * 判断字符串是否为空
+     * 
+     * @param str 原始字符串
+     * @return 字符串是否为空
+     */
+    isEmpty : function(str) {
+        if (str == null || str == &quot;&quot;) {
+            return true;
+        } else if (typeof str == &quot;string&quot;) {
+            return false;
+        } else if (typeof str == &quot;object&quot; &amp;&amp; typeof str.pop == &quot;function&quot;) {
+            if (str.length == 0) {
+                return true;
+            }
+        }
+        return false;
+    },
+<span id='Ice-method-isNotEmpty'>    /**
+</span>     * 判断字符串是否不是为空
+     * 
+     * @param str 原始字符串
+     * @return 字符串是否不是为空
+     */
+    isNotEmpty : function(str) {
+        if (str == null || str == &quot;&quot;) {
+            return false;
+        } else if (typeof str == &quot;string&quot;) {
+            return true;
+        } else if (typeof str == &quot;object&quot; &amp;&amp; typeof str.pop == &quot;function&quot;) {
+            if (str.length == 0) {
+                return false;
+            }
+        }
+        return true;
+    },
+<span id='Ice-method-isBlank'>    /**
+</span>     * 判断字符串是否为空白
+     * 
+     * @param str 原始字符串
+     * @return 字符串是否为空白
+     */
+    isBlank : function(str) {
+        if (str == null || str == &quot;&quot;) {
+            return true;
+        } else {
+            return new RegExp(&quot;^\\s+$&quot;).test(str);
+        }
+    },
+<span id='Ice-method-isNotBlank'>    /**
+</span>     * 判断字符串是否不是空白
+     * 
+     * @param str 原始字符串
+     * @return 字符串是否不是空白
+     */
+    isNotBlank : function(str) {
+        if (str == null || str == &quot;&quot;) {
+            return false;
+        } else {
+            return !new RegExp(&quot;^\\s+$&quot;).test(str);
+        }
+    },
+<span id='Ice-method-removeStart'>    /**
+</span>     * 移除指定字符串开始的字符串
+     * 
+     * @param str 原始字符串
+     * @param prefix 指定的开始字符串
+     * @return 去掉开始字符串后的字符串
+     */
+    removeStart : function(str, prefix) {
+        if (str.length &gt;= prefix.length) {
+            var first = str.substring(0, prefix.length);
+            if (first == prefix) {
+                return str.substring(prefix.length);
+            }
+        }
+        return str;
+    },
+<span id='Ice-method-removeEnd'>    /**
+</span>     * 移除指定字符串结尾的字符串
+     * 
+     * @param str 原始字符串
+     * @param suffix 指定的结束字符串
+     * @return 去掉结束字符串后的字符串
+     */
+    removeEnd : function(str, suffix) {
+        var endLength = suffix.length;
+        var strLength = str.length;
+        if (str.length &gt;= endLength) {
+            var last = str.substring(strLength - endLength);
+            if (last == suffix) {
+                return str.substring(0, strLength - endLength);
+            }
+        }
+        return str;
+    },
+<span id='Ice-method-splitTrim'>    /**
+</span>     * 使用逗号拆分字符串,并去掉每个字符串前后的空格
+     * 
+     * @param str 原始字符串
+     * @return 拆分后的字符串
+     */
+    splitTrim : function(str) {
+        if (str == null) {
+            return null;
+        }
+        if (str == &quot;&quot;) {
+            return &quot;&quot;;
+        }
+        var ary = str.split(&quot;,&quot;);
+        var aryLength = ary.length;
+        var result = new Array(aryLength);
+        for (var i = 0; i &lt; aryLength; i++) {
+            var simple = ary[i];
+            result[i] = simple.replace(/^\s\s*/, &quot;&quot;).replace(/\s\s*$/, &quot;&quot;);
+        }
+        return result;
+    },
+<span id='Ice-method-startHttp'>    /**
+</span>     * 判断url是否以http或https开头
+     * 
+     * @param str 原始字符串
+     * @return 字符串是否以 http 或 https 开头
+     */
+    startHttp : function(str) {
+        if (str == null) {
+            return false;
+        }
+        if (str.length &lt; 7) {// &quot;http://&quot;.length
+            return false;
+        }
+        if (str == &quot;http://&quot;) {
+            return true;
+        }
+        if (str.length == 7) {
+            return false;
+        }
+        if (str.substring(0, 7) == &quot;http://&quot;) {
+            return true;
+        }
+        if (str.substring(0, 8) == &quot;https://&quot;) {
+            return true;
+        }
+        return false;
+    },
+<span id='Ice-method-add'>    /**
+</span>     * 两个数字相加(传入的参数可以是字符串形式)
+     * 
+     * @param num1 第一个加数
+     * @param num2 第二个加数
+     * @return 两个数字相加的和
+     */
+    add : function(num1, num2) {
+        function toNum(numStr) {
+            if (numStr == null) {
+                return 0;
+            }
+            if (typeof numStr == &quot;number&quot;) {
+                return numStr;
+            } else if (typeof numStr == &quot;string&quot;) {
+                if (numStr.indexOf(&quot;.&quot;)) {
+                    if (new RegExp(/^(-?\d+)(\.\d+)?$/).test(numStr)) {
+                        return parseFloat(numStr);
+                    } else {
+                        return numStr;
+                    }
+                } else {
+                    if (new RegExp(/^-?\d+$/).test(numStr)) {
+                        return parseInt(numStr);
+                    } else {
+                        return numStr;
+                    }
+                }
+            } else {
+                return &quot;&quot;;
+            }
+        }
+        if (num1 == null) {
+            if (num2 == null) {
+                return null;
+            } else {
+                return toNum(num2);
+            }
+        } else {
+            if (num2 == null) {
+                return toNum(num1);
+            } else {
+                return toNum(num1) + toNum(num2);
+            }
+        }
+    },
+<span id='Ice-method-isNum'>    /**
+</span>     * 判断字符串是否为数字
+     * 
+     * @param numStr 原始字符串
+     * @return 字符串是否为数字
+     */
+    isNum : function(numStr) {
+        if (typeof numStr == &quot;string&quot;) {
+            return new RegExp(/^\d+$/).test(numStr);
+        } else if (typeof numStr == &quot;number&quot;) {
+            return numStr &gt;= 0 &amp;&amp; numStr != Infinity
+                    &amp;&amp; (numStr + &quot;&quot;).indexOf(&quot;.&quot;) == -1;
+        } else {
+            return false;
+        }
+    },
+<span id='Ice-method-distinct'>    /**
+</span>     * 数组去除重复
+     * 
+     * @param ary 原始数组
+     * @return 去除重复后的数组
+     */
+    distinct : function(ary) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot;) {
+            return ary;
+        }
+        if (ary.length == null) {
+            return ary;
+        }
+        var result = [];
+        for (var i = 0; i &lt; ary.length; i++) {
+            var has = false;
+            var cur = ary[i];
+            for (var j = 0; j &lt; result.length; j++) {
+                if (cur == result[j]) {
+                    has = true;
+                }
+            }
+            if (!has) {
+                result.push(cur);
+            }
+        }
+        return result;
+    },
+<span id='Ice-method-prop'>    /**
+</span>     * 取出数组中所有元素的指定属性
+     * 
+     * @param ary 原始数组
+     * @param key 属性名称
+     * @return 所有元素指定属性形成的新数组
+     */
+    prop : function(ary, key) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot; || typeof ary == &quot;number&quot;) {
+            return null;
+        }
+        if (typeof ary == &quot;object&quot; &amp;&amp; ary.length == null) {
+            return ary[key];
+        }
+        var result = [];
+        for (var i = 0; i &lt; ary.length; i++) {
+            var cur = ary[i];
+            if (cur == null) {
+                result.push(null);
+            } else if (typeof cur == &quot;object&quot;) {
+                result.push(cur[key]);
+            } else {
+                result.push(null);
+            }
+        }
+        return result;
+    },
+<span id='Ice-method-removeEmpty'>    /**
+</span>     * 去除数组中的所有空元素
+     * 
+     * @param ary 原始数组
+     * @return 去除空元素后的数组
+     */
+    removeEmpty : function(ary) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot; || typeof ary == &quot;number&quot;
+                || ary.length == null) {
+            return ary;
+        }
+        var result = [];
+        for (var i = 0; i &lt; ary.length; i++) {
+            var cur = ary[i];
+            if (cur != null &amp;&amp; cur != &quot;&quot;) {
+                result.push(cur);
+            }
+        }
+        return result;
+    },
+<span id='Ice-method-sort'>    /**
+</span>     * 对数组进行排序(按照空在前,数字在中间,字符串在最后的顺序)
+     * 
+     * @param ary 原始数组
+     * @return 排序后的数组
+     */
+    sort : function(ary) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot; || typeof ary == &quot;number&quot;
+                || ary.length == null) {
+            return ary;
+        }
+        function isDouble(numStr) {
+            return new RegExp(/^(-?\d+)(\.\d+)?$/).test(numStr);
+        }
+        for (var i = 0; i &lt; ary.length - 1; i++) {
+            for (j = i + 1; j &lt; ary.length; j++) {
+                var curOut = ary[i];
+                var curIn = ary[j];
+                var swap = false;
+                if (curOut === undefined &amp;&amp; curIn === null) {
+                    swap = true;
+                } else if (curOut != null &amp;&amp; curIn == null) {
+                    swap = true;
+                } else if (isDouble(curOut) &amp;&amp; isDouble(curIn)) {
+                    var num1 = parseFloat(curOut);
+                    var num2 = parseFloat(curIn);
+                    if (num1 &gt; num2) {
+                        swap = true;
+                    }
+                } else if (curOut == null &amp;&amp; isDouble(curIn)) {
+                    swap = false;
+                } else if (curOut == &quot;&quot; &amp;&amp; isDouble(curIn)) {
+                    swap = false;
+                } else if (!isDouble(curOut) &amp;&amp; isDouble(curIn)) {
+                    swap = true;
+                } else if (isDouble(curOut) &amp;&amp; curIn == null) {
+                    swap = true;
+                } else if (isDouble(curOut) &amp;&amp; curIn == &quot;&quot;) {
+                    swap = true;
+                } else if (curOut == null &amp;&amp; isDouble(curIn)) {
+                    swap = false;
+                } else if (isDouble(curOut) &amp;&amp; !isDouble(curIn)) {
+                    swap = false;
+                } else if (curOut &gt; curIn) {
+                    swap = true;
+                }
+                if (swap) {
+                    var temp = curOut;
+                    ary[i] = curIn;
+                    ary[j] = temp;
+                }
+            }
+        }
+        return ary;
+    },
+<span id='Ice-method-copy'>    /**
+</span>     * 复制数组
+     * 
+     * @param ary 原始数组
+     * @return 复制后的新数组
+     */
+    copy : function(ary) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot; || typeof ary == &quot;number&quot;
+                || ary.length == null) {
+            return ary;
+        }
+        var len = ary.length;
+        var result = new Array(len);
+        for (var i = 0; i &lt; len; i++) {
+            result[i] = ary[i];
+        }
+        return result;
+    },
+<span id='Ice-method-first'>    /**
+</span>     * 取出数组中的第一个元素
+     * 
+     * @param ary 原始数组
+     * @return 数组中的第一个元素
+     */
+    first : function(ary) {
+        if (ary == null) {
+            return null;
+        }
+        if (typeof ary == &quot;string&quot; || typeof ary == &quot;number&quot;
+                || ary.length == null) {
+            return ary;
+        }
+        if (ary.length &gt; 0) {
+            return ary[0];
+        } else {
+            return null;
+        }
+    },
+<span id='Ice-method-now'>    /**
+</span>     * 获取当前时间(格式: yyyy-MM-dd HH:mm:ss)
+     * 
+     * @return 当前时间字符串
+     */
+    now : function() {
+        var now = new Date();
+        var sum = &quot;&quot;;
+        var year = now.getFullYear();
+        var month = now.getMonth();
+        var date = now.getDate();
+        var hour = now.getHours();
+        var mintue = now.getMinutes();
+        var second = now.getSeconds();
+        var millisecond = now.getMilliseconds();
+        sum += year;
+        sum += &quot;-&quot;;
+        month++;
+        if (month &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += month;
+        sum += &quot;-&quot;;
+        if (date &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += date;
+        sum += &quot; &quot;;
+        if (hour &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += hour;
+        sum += &quot;:&quot;;
+        if (mintue &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += mintue;
+        sum += &quot;:&quot;;
+        if (second &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += second;
+        return sum;
+    },
+<span id='Ice-method-getLeftFromLeft'>    /**
+</span>     * 获取从左边查找指定字符串左边的字符串
+     * 
+     * @param str 指定字符串
+     * @param sub 需要查找的字符串
+     * @return 截取后的新字符串
+     */
+    getLeftFromLeft : function(str, sub) {
+        if (str == null || str == &quot;&quot; || sub == null || sub == &quot;&quot;) {
+            return str;
+        }
+        var index = str.indexOf(sub);
+        if (index != -1) {
+            return str.substring(0, index);
+        } else {
+            return str;
+        }
+    },
+<span id='Ice-method-getLeftFromRight'>    /**
+</span>     * 获取从右边查找指定字符串左边的字符串
+     * 
+     * @param str 指定字符串
+     * @param sub 需要查找的字符串
+     * @return 截取后的新字符串
+     */
+    getLeftFromRight : function(str, sub) {
+        if (str == null || str == &quot;&quot; || sub == null || sub == &quot;&quot;) {
+            return str;
+        }
+        var index = str.lastIndexOf(sub);
+        if (index != -1) {
+            return str.substring(0, index);
+        } else {
+            return str;
+        }
+    },
+<span id='Ice-method-getRightFromLeft'>    /**
+</span>     * 获取从左边查找指定字符串右边的字符串
+     * 
+     * @param str 指定字符串
+     * @param sub 需要查找的字符串
+     * @return 截取后的新字符串
+     */
+    getRightFromLeft : function(str, sub) {
+        if (str == null || str == &quot;&quot; || sub == null || sub == &quot;&quot;) {
+            return str;
+        }
+        var index = str.indexOf(sub);
+        if (index != -1) {
+            return str.substring(index + sub.length);
+        } else {
+            return str;
+        }
+    },
+<span id='Ice-method-getRightFromRight'>    /**
+</span>     * 获取从右边查找指定字符串右边的字符串
+     * 
+     * @param str 指定字符串
+     * @param sub 需要查找的字符串
+     * @return 截取后的新字符串
+     */
+    getRightFromRight : function(str, sub) {
+        if (str == null || str == &quot;&quot; || sub == null || sub == &quot;&quot;) {
+            return str;
+        }
+        var index = str.lastIndexOf(sub);
+        if (index != -1) {
+            return str.substring(index + sub.length);
+        } else {
+            return str;
+        }
+    },
+<span id='Ice-method-between'>    /**
+</span>     * 查找指定的两个字符串中间的字符串(左边分隔符从左找,右边分隔符从右找)
+     * 
+     * @param str 原始字符串
+     * @param left 左边分隔符
+     * @param right 右边分隔符
+     * @return 截取的中间的字符串
+     */
+    between : function(str, left, right) {
+        if (str == null || str == &quot;&quot;) {
+            return str;
+        }
+        if (left == null || left == &quot;&quot;) {
+            return str;
+        }
+        if (right == null || right == &quot;&quot;) {
+            return str;
+        }
+        var leftIndex = str.indexOf(left);
+        var rightIndex = str.lastIndexOf(right);
+        if (leftIndex == -1) {
+            if (rightIndex == -1) {
+                return str;
+            } else {
+                return str.substring(0, rightIndex);
+            }
+        } else {
+            if (rightIndex == -1) {
+                return str.substring(leftIndex + left.length);
+            } else {
+                return str.substring(leftIndex + left.length, rightIndex);
+            }
+        }
+    },
+<span id='Ice-method-time2second'>    /**
+</span>     * 时间(HH:mm:ss格式)转换为秒数
+     * 
+     * @param timeStr 时间字符串
+     * @return 转换后的秒数
+     */
+    time2second : function(timeStr) {
+        if (timeStr == null || timeStr == &quot;&quot;) {
+            return 0;
+        }
+        var ary = timeStr.split(&quot;:&quot;);
+        var aryLength = ary.length;
+        var hour = 0;
+        var minute = 0;
+        var second = 0;
+        if (aryLength == 2) {
+            minute = parseInt(ary[0]);
+            second = parseInt(ary[1]);
+        } else if (aryLength &gt;= 3) {
+            hour = parseInt(ary[aryLength - 3]);
+            minute = parseInt(ary[aryLength - 2]);
+            second = parseInt(ary[aryLength - 1]);
+        } else if (aryLength == 1) {
+            second = parseInt(ary[0]);
+        }
+        return hour * 3600 + minute * 60 + second;
+    },
+<span id='Ice-method-second2time'>    /**
+</span>     * 秒数转为时间字符串
+     * 
+     * @param seconds 需要转换的秒数
+     * @return 转换后的时间字符串(HH:mm:ss格式)
+     */
+    second2time : function(seconds) {
+        if (seconds == null || seconds == &quot;&quot;) {
+            return &quot;00:00:00&quot;;
+        }
+        var hour = parseInt(seconds / 3600);
+        var minute = parseInt(seconds % 3600 / 60);
+        var second = seconds % 60;
+        var sum = &quot;&quot;;
+        if (hour &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += hour;
+        sum += &quot;:&quot;;
+        if (minute &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        sum += minute;
+        sum += &quot;:&quot;;
+        if (second &lt; 10) {
+            sum += &quot;0&quot;;
+        }
+        if (second % 1 == 0) {
+            sum += second;
+        } else {
+            sum += second.toFixed(3);
+        }
+        return sum;
+    },
+<span id='Ice-method-getEle'>    /**
+</span>     * 根据id获取html对象(#号可以省略)
+     * 
+     * @param mark html元素标示(一般为id)
+     * @return 获取的html对象
+     */
+    getEle : function(mark) {
+        if (mark == null || mark == &quot;&quot;) {
+            return null;
+        }
+        var firstChar = mark.charAt(0);
+        if (firstChar == &quot;#&quot;) {
+            var id = mark.substring(1);
+            return document.getElementById(id);
+        } else if (firstChar == &quot;.&quot;) {
+            var clas = mark.substring(1);
+            if (typeof document.getElementsByClassName == &quot;function&quot;) {
+                return document.getElementsByClassName(clas);
+            } else {
+                var all = document.getElementsByTagName(&quot;*&quot;);
+                var list = [];
+                for (var i = 0; i &lt; all.length; i++) {
+                    var cur = all[i];
+                    if (cur.nodeType == 1) {
+                        var ary = cur.className.split(/\s+/);
+                        for (var j = 0; j &lt; ary.length; j++) {
+                            if (clas == ary[j]) {
+                                list.push(cur);
+                            }
+                        }
+                    }
+                }
+                return list;
+            }
+        } else {
+            var obj = document.getElementById(mark);
+            if (obj != null) {
+                return obj;
+            } else {
+                return document.getElementsByTagName(mark);
+            }
+        }
+    },
+<span id='Ice-method-getExtension'>    /**
+</span>     * 获取url的扩展名
+     * 
+     * @param url 原始路径
+     * @return 从路径中获取的扩展名
+     */
+    getExtension : function(url) {
+        if (url == null || url == &quot;&quot;) {
+            return null;
+        }
+        var slashIndex = url.lastIndexOf(&quot;/&quot;);
+        var pointIndex = url.lastIndexOf(&quot;.&quot;);
+        if (slashIndex == -1) {
+            if (pointIndex == -1) {
+                return null;
+            } else {
+                return url.substring(pointIndex + 1);
+            }
+        } else {
+            if (pointIndex == -1) {
+                return null;
+            } else {
+                if (pointIndex &lt; slashIndex) {
+                    return null;
+                } else {
+                    return url.substring(pointIndex + 1);
+                }
+            }
+        }
+    }
+};
+</pre>
+</body>
+</html>

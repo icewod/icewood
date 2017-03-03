@@ -1,0 +1,15 @@
+console.log(Ice.second2time(null));
+console.log(Ice.second2time(""));
+console.log(Ice.second2time(0));
+console.log(Ice.second2time(1));
+console.log(Ice.second2time(59));
+console.log(Ice.second2time(60));
+console.log(Ice.second2time(61));
+console.log("==============");
+console.log(Ice.second2time(3600));
+console.log(Ice.second2time(3601));
+console.log(Ice.second2time(3701));
+console.log(Ice.second2time(3755));
+console.log(Ice.second2time(3755.123));
+console.log(Ice.second2time(3755.567));
+console.log(Ice.second2time(86000));

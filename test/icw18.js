@@ -1,0 +1,13 @@
+console.log(Ice.startHttp(null));
+console.log(Ice.startHttp(""));
+console.log(Ice.startHttp("abc"));
+console.log(Ice.startHttp("http:/"));
+console.log(Ice.startHttp("http://"));
+console.log(Ice.startHttp("https://"));
+console.log(Ice.startHttp("http://a"));
+console.log("--------------");
+console.log(Ice.startHttp("https://a"));
+console.log(Ice.startHttp("ahttps://"));
+console.log(Ice.startHttp("ahttp://"));
+console.log(Ice.startHttp("ahttp://b"));
+console.log(Ice.startHttp("ahttps://b"));

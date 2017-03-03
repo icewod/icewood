@@ -1,0 +1,10 @@
+console.log(Ice.getExtension(null));
+console.log(Ice.getExtension(""));
+console.log(Ice.getExtension("abc"));
+console.log(Ice.getExtension("abc.txt"));
+console.log(Ice.getExtension("abc/def.cpp"));
+console.log(Ice.getExtension("abc.xyz/def.css"));
+console.log("======================");
+console.log(Ice.getExtension("nm/abc.xyz/def.css"));
+console.log(Ice.getExtension("nm/abc.xyz/def"));
+console.log(Ice.getExtension("nm/abcxyz/def"));

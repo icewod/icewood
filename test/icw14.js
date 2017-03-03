@@ -1,0 +1,24 @@
+////console.log(new Date().toISOString());//
+//console.log(new Date("2012-12-12"));
+//console.log(new Date("2012/12/12"));
+//console.log(newDate("2012/12/12"));
+//console.log("-----------");
+//console.log("abc".repeat());
+//console.log("abc".repeat(5));
+//console.log("-----------");
+//console.log("abcdefg".includes("cde"));
+//console.log("abc".includes("cdex"));
+//console.log("-----------");
+//console.log("     abcdefg     ".trimLeft()+">");
+//console.log("     abcdefg     ".trimRight()+">");
+//console.log("-----------");
+var strs=["aaa","bbb","ccc","bbb","eee"];
+console.log(strs.indexOf("aaa"));
+console.log(strs.indexOf("bbb"));
+console.log(strs.indexOf("ccc"));
+console.log(strs.indexOf("eee"));
+console.log("-----------");
+console.log(strs.lastIndexOf("aaa"));
+console.log(strs.lastIndexOf("bbb"));
+console.log(strs.lastIndexOf("ccc"));
+console.log(strs.lastIndexOf("eee"));
