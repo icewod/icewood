@@ -1190,6 +1190,49 @@ var Ice = {
                 }
             }
         }
+    },
+<span id='Ice-method-param2map'>    /**
+</span>     * 将url转为map对象
+     * 
+     * @param url 原始路径
+     * @return 转换后的参数map对象
+     */
+    param2map: function(url){
+        if(url == null){
+            return null;
+        }
+        if(url == &quot;&quot;){
+            return &quot;&quot;;
+        }
+        var questionIndex = url.indexOf(&quot;?&quot;);
+        var paramStr = url;
+        if(questionIndex != -1){
+            paramStr = url.substring(questionIndex + 1);
+        }
+        var pairs = paramStr.split(&quot;&amp;&quot;);
+        var map = {};
+        for(var i = 0; i &lt; pairs.length; i++){
+            var pair = pairs[i];
+            if(pair != null &amp;&amp; pair != &quot;&quot;){
+                var equalsIndex = pair.indexOf(&quot;=&quot;);
+                var key = null;
+                var value = null;
+                if(equalsIndex != -1){
+                    key = pair.substring(0, equalsIndex);
+                    value = pair.substring(equalsIndex + 1);
+                }
+                if(key != null &amp;&amp; key != &quot;&quot;){
+                    key = key.replace(/^\s\s*/, &quot;&quot;).replace(/\s\s*$/, &quot;&quot;);
+                }
+                if(value != null &amp;&amp; value != &quot;&quot;){
+                    value = value.replace(/^\s\s*/, &quot;&quot;).replace(/\s\s*$/, &quot;&quot;);
+                }
+                if(key != null &amp;&amp; key != &quot;&quot;){
+                    map[key] = value;
+                }
+            }
+        }
+        return map;
     }
 };
 </pre>

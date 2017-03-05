@@ -1173,5 +1173,48 @@ var Ice = {
                 }
             }
         }
+    },
+    /**
+     * 将url转为map对象
+     * 
+     * @param url 原始路径
+     * @return 转换后的参数map对象
+     */
+    param2map: function(url){
+        if(url == null){
+            return null;
+        }
+        if(url == ""){
+            return "";
+        }
+        var questionIndex = url.indexOf("?");
+        var paramStr = url;
+        if(questionIndex != -1){
+            paramStr = url.substring(questionIndex + 1);
+        }
+        var pairs = paramStr.split("&");
+        var map = {};
+        for(var i = 0; i < pairs.length; i++){
+            var pair = pairs[i];
+            if(pair != null && pair != ""){
+                var equalsIndex = pair.indexOf("=");
+                var key = null;
+                var value = null;
+                if(equalsIndex != -1){
+                    key = pair.substring(0, equalsIndex);
+                    value = pair.substring(equalsIndex + 1);
+                }
+                if(key != null && key != ""){
+                    key = key.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+                }
+                if(value != null && value != ""){
+                    value = value.replace(/^\s\s*/, "").replace(/\s\s*$/, "");
+                }
+                if(key != null && key != ""){
+                    map[key] = value;
+                }
+            }
+        }
+        return map;
     }
 };
