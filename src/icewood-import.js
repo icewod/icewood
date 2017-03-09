@@ -27,4 +27,3 @@ window.second2time = Ice.second2time;
 window.getEle = Ice.getEle;
 window.getExtension = Ice.getExtension;
 window.param2map = Ice.param2map;
-

@@ -447,6 +447,78 @@ if (typeof Array.prototype.entries != "function") {
         return p;
     }
 }
+if (typeof Object.is != "function") {
+    Object.prototype.is = function(obj1, obj2) {
+        if(obj1 === 0 && obj2 === -0){
+            return false;
+        }
+        if(obj1 === -0 && obj2===0){
+            return false;
+        }
+        if(obj1 === 0 && obj2 === +0){
+            return true;
+        }
+        if(obj1 === +0 && obj2 === -0){
+            return false;
+        }
+        if(obj1 === -0 && obj2 === +0){
+            return false;
+        }
+        if(obj1 === +0 && obj2 === 0){
+            return true;
+        }
+        if(obj1 === 0 && obj2 === 0){
+            return true;
+        }
+        if(obj1 == 0 && obj2 == 0){
+            return true;
+        }
+        if((typeof obj1 == "string") && (typeof obj2 == "string")){
+            if(obj1.length != obj2.length){
+                return false;
+            }
+            for(var i = 0;i < obj1.length; i++){
+                var asc1 = obj1.charCodeAt(i);
+                var asc2 = obj2.charCodeAt(i);
+                if(asc1 !== asc2){
+                    return false;
+                }
+            }
+            return true;
+        }
+        if(typeof obj1 == "number" && typeof obj2 == "number" && isNaN(obj1) && isNaN(obj2)){
+            return true;
+        }
+        return obj1 === obj2;
+    }
+}
+if (typeof Object.keys != "function") {
+    Object.prototype.keys = function(obj) {
+    	if(obj == null){
+    		throw new Error("Uncaught TypeError: Cannot convert undefined or null to object");
+    	}
+    	if(typeof obj == "number" ){
+            return [];
+    	}
+    	if(typeof obj == "string"){
+            var result = [];
+            for(var i = 0; i < obj.length; i++){
+            	result.push(i + "");
+            }
+            return result;
+    	}
+        var list = [];
+        for(var key in obj){
+        	if(key != "is" && key != "keys" ){
+        		list.push(key);
+        	}
+        }
+        return list;
+    }
+}
+if (Object.name === undefined) {
+	Object.name = "Object";
+}
 
 /**
  * icewood提供了javascript操作的基础函数 <br/>
